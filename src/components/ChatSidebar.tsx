@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, ChevronLeft, ChevronRight, Plus, Trash, CPU } from "lucide-react";
+import { MessageSquare, ChevronLeft, ChevronRight, Plus, Trash, Cpu } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -157,7 +157,7 @@ const ChatSidebar = ({
             <Select value={selectedModel} onValueChange={onModelChange}>
               <SelectTrigger className="w-full bg-white border-2 border-gray-500">
                 <div className="flex items-center gap-2">
-                  <CPU size={16} className="text-blue-500" />
+                  <Cpu size={16} className="text-blue-500" />
                   <SelectValue placeholder="Select model" />
                 </div>
               </SelectTrigger>
@@ -175,7 +175,7 @@ const ChatSidebar = ({
               className="h-8 w-8"
               title="Select AI Model"
             >
-              <CPU size={18} className="text-blue-500" />
+              <Cpu size={18} className="text-blue-500" />
             </Button>
           )}
         </div>
