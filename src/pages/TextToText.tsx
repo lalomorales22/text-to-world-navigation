@@ -28,6 +28,7 @@ const TextToText = () => {
   const [currentChat, setCurrentChat] = useState<Chat | null>(null);
   const [savedChats, setSavedChats] = useState<Chat[]>([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [selectedModel, setSelectedModel] = useState("gpt4o");
   const { toast } = useToast();
 
   // Initialize or load a new chat
@@ -97,6 +98,23 @@ const TextToText = () => {
     });
   };
 
+  const handleModelChange = (model: string) => {
+    setSelectedModel(model);
+    toast({
+      title: `Model changed to ${getModelDisplayName(model)}`,
+    });
+  };
+
+  const getModelDisplayName = (modelId: string): string => {
+    const models: Record<string, string> = {
+      'grok3': 'Grok 3',
+      'claude': 'Claude Sonnet 3.7',
+      'gpt4o': 'ChatGPT o1',
+      'llama3': 'Meta LLama 3.3'
+    };
+    return models[modelId] || modelId;
+  };
+
   const sendMessage = () => {
     if (!input.trim()) {
       toast({
@@ -133,7 +151,7 @@ const TextToText = () => {
     setTimeout(() => {
       // Create bot response
       const botResponse: Message = {
-        content: generateResponse(input),
+        content: generateResponse(input, selectedModel),
         isUser: false,
         timestamp: new Date()
       };
@@ -151,14 +169,23 @@ const TextToText = () => {
     }, 1000);
   };
 
-  const generateResponse = (userInput: string): string => {
-    // Simple example responses - in a real app you'd use an actual AI API
+  const generateResponse = (userInput: string, model: string): string => {
+    // Simple example responses based on model - in a real app you'd use an actual AI API
+    const modelIntros = {
+      'grok3': "Grok 3 says: ",
+      'claude': "Claude Sonnet responds: ",
+      'gpt4o': "ChatGPT o1 thinks: ",
+      'llama3': "LLama 3.3 answers: "
+    };
+    
+    const intro = modelIntros[model] || "";
+    
     const responses = [
-      `I understand you're saying: "${userInput}". Tell me more.`,
-      `Interesting point about "${userInput}". How did you come to that conclusion?`,
-      `"${userInput}" is a fascinating topic. Let's explore it further.`,
-      `Thanks for sharing your thoughts on "${userInput}". Here's what I think...`,
-      `I've processed your message about "${userInput}". Would you like to elaborate?`
+      `${intro}I understand you're saying: "${userInput}". Tell me more.`,
+      `${intro}Interesting point about "${userInput}". How did you come to that conclusion?`,
+      `${intro}"${userInput}" is a fascinating topic. Let's explore it further.`,
+      `${intro}Thanks for sharing your thoughts on "${userInput}". Here's what I think...`,
+      `${intro}I've processed your message about "${userInput}". Would you like to elaborate?`
     ];
     return responses[Math.floor(Math.random() * responses.length)];
   };
@@ -181,6 +208,8 @@ const TextToText = () => {
           onChatDelete={deleteChat}
           onNewChat={createNewChat}
           currentChatId={currentChat?.id || ""}
+          selectedModel={selectedModel}
+          onModelChange={handleModelChange}
         />
         
         {/* Main Chat Area */}
@@ -210,7 +239,7 @@ const TextToText = () => {
               <div className="h-full flex items-center justify-center text-gray-400">
                 <div className="text-center">
                   <MessageSquare className="mx-auto mb-2 h-12 w-12 opacity-20" />
-                  <p>Start a new conversation</p>
+                  <p>Start a new conversation with {getModelDisplayName(selectedModel)}</p>
                 </div>
               </div>
             )}
@@ -219,7 +248,7 @@ const TextToText = () => {
           {/* Input Area */}
           <div className="border-t-2 border-black p-4 flex gap-2">
             <Textarea 
-              placeholder="Type your message here..."
+              placeholder={`Ask ${getModelDisplayName(selectedModel)}...`}
               className="flex-1 border-2 border-black bg-white/90 text-lg min-h-[60px] max-h-[120px]"
               value={input}
               onChange={(e) => setInput(e.target.value)}

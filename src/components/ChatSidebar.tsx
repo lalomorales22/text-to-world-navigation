@@ -1,7 +1,14 @@
 
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, ChevronLeft, ChevronRight, Plus, Trash } from "lucide-react";
+import { MessageSquare, ChevronLeft, ChevronRight, Plus, Trash, CPU } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Chat = {
   id: string;
@@ -22,6 +29,8 @@ type ChatSidebarProps = {
   onChatDelete: (chatId: string) => void;
   onNewChat: () => void;
   currentChatId: string;
+  selectedModel: string;
+  onModelChange: (model: string) => void;
 };
 
 const ChatSidebar = ({
@@ -31,7 +40,9 @@ const ChatSidebar = ({
   onChatSelect,
   onChatDelete,
   onNewChat,
-  currentChatId
+  currentChatId,
+  selectedModel,
+  onModelChange
 }: ChatSidebarProps) => {
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
@@ -49,7 +60,7 @@ const ChatSidebar = ({
 
   return (
     <div 
-      className={`absolute left-0 top-0 bottom-0 bg-gray-100 border-r-2 border-black rounded-r-lg transition-all duration-300 ${
+      className={`absolute left-0 top-0 bottom-0 bg-gray-100 border-2 border-gray-800 rounded-r-lg transition-all duration-300 ${
         isOpen ? 'w-[240px]' : 'w-[50px]'
       }`}
     >
@@ -139,6 +150,35 @@ const ChatSidebar = ({
             )}
           </div>
         )}
+
+        {/* Model Selector */}
+        <div className={`mt-auto p-2 border-t-2 border-gray-300 ${!isOpen && 'flex justify-center'}`}>
+          {isOpen ? (
+            <Select value={selectedModel} onValueChange={onModelChange}>
+              <SelectTrigger className="w-full bg-white border-2 border-gray-500">
+                <div className="flex items-center gap-2">
+                  <CPU size={16} className="text-blue-500" />
+                  <SelectValue placeholder="Select model" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="bg-white border-2 border-gray-500">
+                <SelectItem value="grok3">Grok 3</SelectItem>
+                <SelectItem value="claude">Claude Sonnet 3.7</SelectItem>
+                <SelectItem value="gpt4o">ChatGPT o1</SelectItem>
+                <SelectItem value="llama3">Meta LLama 3.3</SelectItem>
+              </SelectContent>
+            </Select>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="h-8 w-8"
+              title="Select AI Model"
+            >
+              <CPU size={18} className="text-blue-500" />
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
