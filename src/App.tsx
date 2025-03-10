@@ -12,6 +12,9 @@ import TextToGame from "./pages/TextToGame";
 import TextToSoftware from "./pages/TextToSoftware";
 import TextToWorld from "./pages/TextToWorld";
 import TextToTelepathy from "./pages/TextToTelepathy";
+import TextToMeme from "./pages/TextToMeme";
+import TextToStereogram from "./pages/TextToStereogram";
+import TextToGif from "./pages/TextToGif";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +34,9 @@ const App = () => (
           <Route path="/text-to-software" element={<TextToSoftware />} />
           <Route path="/text-to-world" element={<TextToWorld />} />
           <Route path="/text-to-telepathy" element={<TextToTelepathy />} />
+          <Route path="/text-to-meme" element={<TextToMeme />} />
+          <Route path="/text-to-stereogram" element={<TextToStereogram />} />
+          <Route path="/text-to-gif" element={<TextToGif />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

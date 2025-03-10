@@ -106,3 +106,6 @@
 .software-page { @apply bg-orange/10; }
 .world-page { @apply bg-red/10; }
 .telepathy-page { @apply bg-purple/10; }
+.meme-page { @apply bg-pink/10; }
+.stereogram-page { @apply bg-green/10; }
+.gif-page { @apply bg-blue/10; }
