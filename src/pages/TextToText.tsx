@@ -236,9 +236,9 @@ const TextToText = () => {
                 ))}
               </div>
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-400">
+              <div className="h-full flex items-center justify-center text-black">
                 <div className="text-center">
-                  <MessageSquare className="mx-auto mb-2 h-12 w-12 opacity-20" />
+                  <MessageSquare className="mx-auto mb-2 h-12 w-12 opacity-20 text-black" />
                   <p>Start a new conversation with {getModelDisplayName(selectedModel)}</p>
                 </div>
               </div>
@@ -261,17 +261,17 @@ const TextToText = () => {
             />
             <div className="flex flex-col gap-2">
               <Button 
-                className="bg-teal-500 border-2 border-black text-white hover:bg-teal-600 h-12 w-12 p-0"
+                className="bg-teal-500 border-2 border-black text-black hover:bg-teal-600 h-12 w-12 p-0"
                 onClick={sendMessage}
                 disabled={isGenerating}
               >
-                <Send size={20} />
+                <Send size={20} className="text-black" />
               </Button>
               <Button 
-                className="bg-blue-500 border-2 border-black text-white hover:bg-blue-600 h-12 w-12 p-0"
+                className="bg-blue-500 border-2 border-black text-black hover:bg-blue-600 h-12 w-12 p-0"
                 onClick={saveCurrentChat}
               >
-                <Save size={20} />
+                <Save size={20} className="text-black" />
               </Button>
             </div>
           </div>

@@ -73,19 +73,19 @@ const ChatSidebar = ({
             onClick={toggleSidebar}
             className="h-8 w-8"
           >
-            {isOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+            {isOpen ? <ChevronLeft size={18} className="text-black" /> : <ChevronRight size={18} className="text-black" />}
           </Button>
         </div>
         
         {/* New Chat Button */}
         <Button
           onClick={onNewChat}
-          className={`m-2 bg-teal-500 hover:bg-teal-600 border-2 border-black text-white ${
+          className={`m-2 bg-teal-500 hover:bg-teal-600 border-2 border-black text-black ${
             isOpen ? 'justify-start' : 'justify-center p-0 h-10 w-10'
           }`}
         >
-          <Plus size={isOpen ? 16 : 18} />
-          {isOpen && <span className="ml-2">New Chat</span>}
+          <Plus size={isOpen ? 16 : 18} className="text-black" />
+          {isOpen && <span className="ml-2 text-black">New Chat</span>}
         </Button>
         
         {/* Chat List */}
@@ -101,10 +101,10 @@ const ChatSidebar = ({
                     }`}
                     onClick={() => onChatSelect(chat.id)}
                   >
-                    <MessageSquare size={16} className="flex-shrink-0 mr-2 text-teal-500" />
+                    <MessageSquare size={16} className="flex-shrink-0 mr-2 text-black" />
                     <div className="flex-1 overflow-hidden">
-                      <div className="font-medium text-sm truncate">{truncateTitle(chat.title)}</div>
-                      <div className="text-xs text-gray-500">{formatDate(chat.createdAt)}</div>
+                      <div className="font-medium text-sm text-black truncate">{truncateTitle(chat.title)}</div>
+                      <div className="text-xs text-black">{formatDate(chat.createdAt)}</div>
                     </div>
                     <Button
                       variant="ghost"
@@ -115,13 +115,13 @@ const ChatSidebar = ({
                         onChatDelete(chat.id);
                       }}
                     >
-                      <Trash size={14} className="text-red-500" />
+                      <Trash size={14} className="text-black" />
                     </Button>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-center text-gray-400 mt-4">
+              <div className="text-center text-black mt-4">
                 <p className="text-sm">No saved chats</p>
               </div>
             )}
@@ -140,11 +140,11 @@ const ChatSidebar = ({
                 onClick={() => onChatSelect(chat.id)}
                 title={chat.title}
               >
-                <MessageSquare size={14} className="text-teal-700" />
+                <MessageSquare size={14} className="text-black" />
               </div>
             ))}
             {chats.length > 5 && (
-              <div className="text-xs font-semibold text-gray-500">
+              <div className="text-xs font-semibold text-black">
                 +{chats.length - 5}
               </div>
             )}
@@ -157,15 +157,15 @@ const ChatSidebar = ({
             <Select value={selectedModel} onValueChange={onModelChange}>
               <SelectTrigger className="w-full bg-white border-2 border-gray-500">
                 <div className="flex items-center gap-2">
-                  <Cpu size={16} className="text-blue-500" />
-                  <SelectValue placeholder="Select model" />
+                  <Cpu size={16} className="text-black" />
+                  <SelectValue placeholder="Select model" className="text-black" />
                 </div>
               </SelectTrigger>
               <SelectContent className="bg-white border-2 border-gray-500">
-                <SelectItem value="grok3">Grok 3</SelectItem>
-                <SelectItem value="claude">Claude Sonnet 3.7</SelectItem>
-                <SelectItem value="gpt4o">ChatGPT o1</SelectItem>
-                <SelectItem value="llama3">Meta LLama 3.3</SelectItem>
+                <SelectItem value="grok3" className="text-black">Grok 3</SelectItem>
+                <SelectItem value="claude" className="text-black">Claude Sonnet 3.7</SelectItem>
+                <SelectItem value="gpt4o" className="text-black">ChatGPT o1</SelectItem>
+                <SelectItem value="llama3" className="text-black">Meta LLama 3.3</SelectItem>
               </SelectContent>
             </Select>
           ) : (
@@ -175,7 +175,7 @@ const ChatSidebar = ({
               className="h-8 w-8"
               title="Select AI Model"
             >
-              <Cpu size={18} className="text-blue-500" />
+              <Cpu size={18} className="text-black" />
             </Button>
           )}
         </div>
